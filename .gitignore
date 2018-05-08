@@ -102,4 +102,5 @@ ENV/
 
 #large dataset
 data/credits.csv
+data/movies_2017_html.csv
 notes.txt
