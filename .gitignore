@@ -102,3 +102,4 @@ ENV/
 
 #large dataset
 data/credits.csv
+notes.txt
