@@ -51,7 +51,7 @@ def scrape_one_year(year):
                          })
         # print(i)
         i += 1
-        browser.get("https://www.the-numbers.com/United-States/movies/year/2016")
+        browser.get("https://www.the-numbers.com/United-States/movies/year/" + str(year))
     return None
 
 create_mongodb()

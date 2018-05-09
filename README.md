@@ -49,3 +49,40 @@ scraped has already been narrowed to show only US productions (or co-productions
 # Model Evaluation
 
 # Conclusion
+
+
+
+#What numbers do I need?
+Title - from html code itself, should be located somewhere just before the first table
+
+Items below can be extracted from pd.read_html, look into whether its easier to pull from this or directly from the unparsed mongodb format
+
+Domestic Box office
+Intl Box office
+Worldwide Box office
+
+Production Budget
+Release Date
+
+
+#What numbers do I need?
+Title - from html code itself, should be located somewhere just before the first table
+
+Items below can be extracted from pd.read_html, look into whether its easier to pull from this or directly from the unparsed mongodb format is
+MPAA Rating
+Franchise (dummy is fine)
+Running Time
+Source
+Genre
+Production Method
+Creative Type
+Production Companies
+
+Lead Actor 1
+Lead Actor 2
+Lead Actor 3
+Lead Actor 4
+
+Director
+Executive Producer
+Producer
