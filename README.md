@@ -35,7 +35,8 @@ Reasons;
 ## Production Country
 Because of the nature of the problem, and taking the stance of a hypothetical
 Hollywood studio exec, all productions are assumed to be American productions.
-Therefore only data for American productions was collected.
+Therefore only data for American productions was collected. The webpage being
+scraped has already been narrowed to show only US productions (or co-productions).
 
 #Data Preparation
 
