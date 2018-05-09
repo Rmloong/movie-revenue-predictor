@@ -10,8 +10,15 @@ import json
 import numpy as np
 
 def create_mongodb():
+    '''
+    runs the mongo client and creates the database necessary to store all HTML code
+    Does not need a return because the result is adding to the collection one by one
+    Only takes data that is a US production, and has revenue >0. See README for
+    reasoning for these filters.
+    '''
     mc = pymongo.MongoClient()  # Connect to the MongoDB server using default settings
-    db = mc['movies_metadata']  # Use (or create) a database called 'movies_metadata
+    db = mc['movies_metadata']  # Use (or create) a database called 'movies_metadataly  Ads blocked
+
     movies = db['movies'] #Create a collection called movies
 
     #Webscrape and add each movie html data to the collection movies from the movies_metadata db
@@ -23,6 +30,11 @@ def create_mongodb():
     return None
 
 def scrape_one_year(year):
+    '''
+    adds the movie records to the mongodb collection 'movies'
+    for every single movie in a given year
+    '''
+
     browser.get("https://www.the-numbers.com/United-States/movies/year/" + str(year))
     i = 2
     while (browser.find_element_by_css_selector("#page_filling_chart > center:nth-child(7) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(" + str(i) + ") > td:nth-child(5)").text != '$0'):
