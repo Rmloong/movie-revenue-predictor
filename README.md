@@ -68,7 +68,14 @@ Release Date
 #What numbers do I need?
 Title - from html code itself, should be located somewhere just before the first table
 
+
+
 Items below can be extracted from pd.read_html, look into whether its easier to pull from this or directly from the unparsed mongodb format is
+Domestic Box office
+Intl Box office
+Worldwide Box office
+
+Release date
 MPAA Rating
 Franchise (dummy is fine)
 Running Time
