@@ -8,6 +8,7 @@ import time
 import json
 
 import numpy as np
+import pandas as pd
 
 def create_mongodb():
     '''
@@ -21,6 +22,8 @@ def create_mongodb():
 
     movies = db['movies'] #Create a collection called movies
 
+    movies_clean = db['movies_clean']
+    movies_clean_v2 = db['movies_clean_v2']
     #Webscrape and add each movie html data to the collection movies from the movies_metadata db
     browser = webdriver.Firefox()
 
@@ -41,9 +44,11 @@ def scrape_one_year(year):
         #If the worldwide revenue is a nonzero amount... then go to the direct webpage for the movie
         #Then store that webpage's html code in the pymongo collection
         url = browser.find_element_by_css_selector("#page_filling_chart > center:nth-child(7) > table:nth-child(3) > tbody:nth-child(1) > tr:nth-child(" + str(i) + ") > td:nth-child(1) > b:nth-child(1) > a:nth-child(1)").get_attribute('href')
-        DELAY = 0.1 + 0.5 * np.random.random() # time to wait between HTTP requests
-        time.sleep(DELAY)  # pause between HTTP requests
+        DELAY = 5 + 5 * np.random.random() # time to wait between HTTP requests
+
         browser.get(url)
+
+        time.sleep(DELAY)  # pause between HTTP requests
         html = browser.page_source
         movies.insert_one({'url': url,
                          'ts': time.time(),
@@ -53,5 +58,3 @@ def scrape_one_year(year):
         i += 1
         browser.get("https://www.the-numbers.com/United-States/movies/year/" + str(year))
     return None
-
-create_mongodb()
