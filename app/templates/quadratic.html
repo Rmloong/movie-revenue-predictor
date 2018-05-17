@@ -26,21 +26,10 @@
     </div>
 
     <div>
-        <span>Genre:</span>
-        <select id=genre>
-          <option value='Adventure'> Adventure </option>
-          <option value='Musical'> Musical </option>
-          <option value='Action'> Action </option>
-          <option value='Horror'> Horror </option>
-          <option value='Drama'> Drama </option>
-          <option value='Thriller/Suspense'> Thriller/Suspense </option>
-          <option value='Comedy'> Comedy </option>
-          <option value='Black Comedy'> Black Comedy </option>
-          <option value='Western'> Western </option>
-          <option value='Romantic Comedy'> Romantic Comedy </option>
-          <option value='Documentary'> Documentary </option>
-          <option value='Concert'> Concert</option>
-          <option value='Unknown/None'> Unknown/None </option>
+        <span>Part of Franchise?:</span>
+        <select id=franchise>
+          <option value='is_franchise'> Yes </option>
+          <option value='not_franchise'> No </option>
         </select>
     </div>
 
@@ -55,14 +44,30 @@
         </select>
     </div>
 
-    <!--
     <div>
-        <span>Part of Franchise?:</span>
-        <select id=franchise>
-          <option value='is_franchise'> Yes </option>
-          <option value='not_franchise'> No </option>
+      <!-- Index 9:21 inclusive in prediction array -->
+        <span>Genre:</span>
+        <select id=genre>
+          <option value='Action'> Action </option>
+          <option value='Adventure'> Adventure </option>
+          <option value='Black Comedy'> Black Comedy </option>
+          <option value='Comedy'> Comedy </option>
+          <option value='Concert'> Concert</option>
+          <option value='Documentary'> Documentary </option>
+          <option value='Drama'> Drama </option>
+          <option value='Horror'> Horror </option>
+          <option value='Multiple'> Multiple </option>
+          <option value='Musical'> Musical </option>
+          <option value='Romantic Comedy'> Romantic Comedy </option>
+          <option value='Thriller/Suspense'> Thriller/Suspense </option>
+          <option value='Western'> Western </option>
         </select>
     </div>
+
+
+
+    <!--
+
     <div>
         <span>Production Method:</span>
         <select id=production_method>
@@ -100,15 +105,19 @@
 
 <script type="text/javascript">
 let get_input_coefficients = function() {
+  let franchise_input = $("select#franchise")
   let genre_input = $("select#genre")
   let rating_input = $("select#rating")
-    let genre = genre_input.val()
     let budget = $("input#b").val()
+    let franchise = franchise_input.val()
+    let genre = genre_input.val()
     let rating = rating_input.val()
-    // let c = $("input#c").val()
-    return {'genre': genre,
-            'budget': parseInt(budget),
-            'rating': rating}
+
+    return {'budget': parseInt(budget),
+            'franchise': franchise,
+            'genre': genre,
+            'rating': rating
+            }
 };
 let send_coefficient_json = function(coefficients) {
     $.ajax({
@@ -122,7 +131,7 @@ let send_coefficient_json = function(coefficients) {
     });
 };
 let display_solutions = function(solutions) {
-    $("span#solution").html(solutions.root_1)
+    $("span#solution").html(solutions.root_1 + '<p> and your prediction is: ' + solutions.prediction)
 };
 $(document).ready(function() {
     $("button#solve").click(function() {

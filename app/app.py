@@ -2,6 +2,11 @@ from __future__ import division
 from math import sqrt
 from flask import Flask, render_template, request, jsonify
 import numpy as np
+import pandas as pd
+from sklearn.externals import joblib
+
+
+
 
 app = Flask(__name__)
 
@@ -14,19 +19,54 @@ def index():
 def solve():
     user_data = request.json
     print(user_data)
-    genre, budget, rating = user_data['genre'], user_data['budget'], user_data['rating']
-    root_1 = _solve_quadratic(genre, budget, rating)
-    return jsonify({'root_1': root_1})
+    budget = user_data['budget']
+    franchise = user_data['franchise']
+    rating = user_data['rating']
+    genre = user_data['genre']
 
+    root_1 = _solve_quadratic(budget, franchise, rating, genre)
+    single_pred_test_2 = create_prediction_array(budget, franchise, rating, genre)
+    prediction = model.predict(single_pred_test_2)
+    print(model_columns)
+    print(single_pred_test_2)
 
-def _solve_quadratic(a, b, c):
-    log_b = np.log(b)
+    return jsonify({'root_1': root_1, 'prediction': list(prediction)})
+
+def _solve_quadratic(budget, franchise, rating, genre):
+    log_b = np.log(budget)
     return f'You want to make a prediction of a movie:\
-            <p> in the <b>{a}</b> Genre,\
-            <p> with an MPAA Rating of <b>{c}</b>,\
-            <p> with a budget of <b>{b}</b> and a\
+            <p> in the <b>{genre}</b> Genre,\
+            <p> with an MPAA Rating of <b>{rating}</b>,\
+            <p> with a budget of <b>{budget}</b> and a\
             <p> log_budget of <b>{log_b}</b>'
 
+def create_prediction_array(budget, franchise, rating, genre):
+    df_single_pred = pd.DataFrame(np.array([[ 15.,   90.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+             0.,   0.,   0.,   0.]]))
+    df_single_pred.columns = model_columns
+
+    df_single_pred.loc[0]['log_budget'] = np.log(budget)
+
+    franchise_value = df_single_pred.loc[0]['is_franchise']
+    if franchise == 'is_franchise':
+        franchise_value = 1
+    df_single_pred.loc[0]['is_franchise'] = franchise_value
+
+    df_single_pred.loc[0][rating] = 1
+
+    df_single_pred.loc[0][genre] = 1
+
+    # genre_index = np.where(np.array(model_columns == genre))[0][0]
+    # prediction_array[0][genre_index] = 1
+
+    return df_single_pred
 
 if __name__ == '__main__':
+    model = joblib.load('../model.pkl')
+    model_columns = joblib.load('../model_columns.pkl')
     app.run(host='0.0.0.0', threaded=True)
