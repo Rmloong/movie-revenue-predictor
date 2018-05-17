@@ -20,7 +20,7 @@
         <!-- These have id's so that later we can pull out data using js. -->
         <span>Placeholder (dont use this for now):</span> <input id="a"></input>
         <p>
-        <span>budget:</span> <input id="b"></input>
+        <span>Production Budget ($1000 to $500mil):</span> <input id="b"></input>
         </p>
         <!-- <span>c:</span> <input id="c"></input> -->
     </div>
@@ -64,34 +64,76 @@
         </select>
     </div>
 
-
-
-    <!--
-
     <div>
         <span>Production Method:</span>
-        <select id=production_method>
-          <option value='live_action'> Live Action </option>
-          <option value='ani_and_action'> Animation/Live Action </option>
-          <option value='digital_ani'> Digital Animation </option>
-          <option value='hand_ani'> Hand Animation </option>
-          <option value='stop_motion_ani'> Stop Motion Animation </option>
-          <option value='none'> Live Action </option>
-          <option value='live_action'> Live Action </option>
+        <select id=prod_method>
+          <option value='Animation/Live Action'> Animation/Live Action </option>
+          <option value='Digital Animation'> Digital Animation </option>
+          <option value='Hand Animation'> Hand Animation </option>
+          <option value='Live Action'> Live Action </option>
+          <option value='Multiple Production Methods'> Multiple Production Methods </option>
+          <option value='Stop-Motion Animation'> Stop-Motion Animation </option>
         </select>
     </div>
+
     <div>
         <span>Creative Type:</span>
-        <select id=production_method>
-          <option value='live_action'> Live Action </option>
-          <option value='ani_and_action'> Animation/Live Action </option>
-          <option value='digital_ani'> Digital Animation </option>
-          <option value='hand_ani'> Hand Animation </option>
-          <option value='stop_motion_ani'> Stop Motion Animation </option>
-          <option value='none'> Live Action </option>
-          <option value='live_action'> Live Action </option>
+        <select id=creative_type>
+          <option value='Contemporary Fiction'> Contemporary Fiction </option>
+          <option value='Dramatization'> Dramatization </option>
+          <option value='Factual'> Factual </option>
+          <option value='Fantasy'> Fantasy </option>
+          <option value='Historical Fiction'> Historical Fiction </option>
+          <option value='Kids Fiction'> Kids Fiction </option>
+          <option value='Multiple Creative Types'> Multiple Creative Types </option>
+          <option value='Science Fiction'> Science Fiction </option>
+          <option value='Super Hero'> Super Hero </option>
         </select>
-    </div> -->
+    </div>
+
+    <div>
+        <span>Source:</span>
+        <select id=source>
+          <option value='Based on Comic/Graphic Novel'> Based on Comic/Graphic Novel </option>
+          <option value='Based on Factual Book/Article'> Based on Factual Book/Article </option>
+          <option value='Based on Fiction Book/Short Story'> Based on Fiction Book/Short Story </option>
+          <option value='Based on Folk Tale/Legend/Fairytale'> Based on Folk Tale/Legend/Fairytale </option>
+          <option value='Based on Game'> Based on Game </option>
+          <option value='Based on Movie'> Based on Movie </option>
+          <option value='Based on Musical Group'> Based on Musical Group </option>
+          <option value='Based on Musical or Opera'> Based on Musical or Opera </option>
+          <option value='Based on Play'> Based on Play </option>
+          <option value='Based on Real Life Events'> Based on Real Life Events </option>
+          <option value='Based on Religious Text'> Based on Religious Text </option>
+          <option value='Based on Short Film'> Based on Short Film </option>
+          <option value='Based on TV'> Based on TV </option>
+          <option value='Based on Theme Park Ride'> Based on Theme Park Ride </option>
+          <option value='Based on Toy'> Based on Toy </option>
+          <option value='Based on Web Series'> Based on Web Series </option>
+          <option value='Compilation'> Compilation </option>
+          <option value='Original Screenplay'> Original Screenplay </option>
+          <option value='Remake'> Remake </option>
+          <option value='Spin-Off'> Spin-Off </option>
+        </select>
+    </div>
+
+    <div>
+        <span>Month:</span>
+        <select id=month>
+          <option value='January'> January </option>
+          <option value='February'> February </option>
+          <option value='March'> March </option>
+          <option value='April'> April </option>
+          <option value='May'> May </option>
+          <option value='June'> June </option>
+          <option value='July'> July </option>
+          <option value='August'> August </option>
+          <option value='September'> September </option>
+          <option value='October'> October </option>
+          <option value='November'> November </option>
+          <option value='December'> December </option>
+        </select>
+    </div>
 
     <div>
         <button type="button" id="solve">Solve!</button>
@@ -102,21 +144,32 @@
              using js. -->
         <p><span id="solution"></span> </p>
 
-
 <script type="text/javascript">
 let get_input_coefficients = function() {
   let franchise_input = $("select#franchise")
   let genre_input = $("select#genre")
   let rating_input = $("select#rating")
+  let prod_method_input = $("select#prod_method")
+  let creative_type_input = $('select#creative_type')
+  let source_input = $('select#source')
+  let month_input = $('select#month')
     let budget = $("input#b").val()
     let franchise = franchise_input.val()
     let genre = genre_input.val()
     let rating = rating_input.val()
+    let prod_method = prod_method_input.val()
+    let creative_type = creative_type_input.val()
+    let source = source_input.val()
+    let month = month_input.val()
 
     return {'budget': parseInt(budget),
             'franchise': franchise,
             'genre': genre,
-            'rating': rating
+            'rating': rating,
+            'prod_method': prod_method,
+            'creative_type': creative_type,
+            'source': source,
+            'month': month
             }
 };
 let send_coefficient_json = function(coefficients) {

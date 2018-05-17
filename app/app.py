@@ -6,14 +6,11 @@ import pandas as pd
 from sklearn.externals import joblib
 
 
-
-
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('quadratic.html')
-
 
 @app.route('/solve', methods=['POST'])
 def solve():
@@ -23,10 +20,14 @@ def solve():
     franchise = user_data['franchise']
     rating = user_data['rating']
     genre = user_data['genre']
+    prod_method = user_data['prod_method']
+    creative_type = user_data['creative_type']
+    source = user_data['source']
+    month = user_data['month']
 
     root_1 = _solve_quadratic(budget, franchise, rating, genre)
-    single_pred_test_2 = create_prediction_array(budget, franchise, rating, genre)
-    prediction = model.predict(single_pred_test_2)
+    single_pred_test_2 = create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month)
+    prediction = np.exp(model.predict(single_pred_test_2))
     print(model_columns)
     print(single_pred_test_2)
 
@@ -40,7 +41,7 @@ def _solve_quadratic(budget, franchise, rating, genre):
             <p> with a budget of <b>{budget}</b> and a\
             <p> log_budget of <b>{log_b}</b>'
 
-def create_prediction_array(budget, franchise, rating, genre):
+def create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month):
     df_single_pred = pd.DataFrame(np.array([[ 15.,   90.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
              0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
              0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
@@ -61,8 +62,13 @@ def create_prediction_array(budget, franchise, rating, genre):
 
     df_single_pred.loc[0][genre] = 1
 
-    # genre_index = np.where(np.array(model_columns == genre))[0][0]
-    # prediction_array[0][genre_index] = 1
+    df_single_pred.loc[0][prod_method] = 1
+
+    df_single_pred.loc[0][creative_type] = 1
+
+    df_single_pred.loc[0][source] = 1
+
+    df_single_pred.loc[0][month] = 1
 
     return df_single_pred
 
