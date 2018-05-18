@@ -60,7 +60,7 @@ def print_prediction(prediction):
     html code to print the prediction
     '''
     prediction_str = '${:,.0f}'.format(prediction[0])
-    return f'<p> Your prediction is: ' + prediction_str
+    return f'<p> Predicted Revenue: ' + prediction_str
 
 def create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month):
     '''
@@ -107,7 +107,7 @@ def create_prediction_array(budget, franchise, rating, genre, prod_method, creat
     df_single_pred.loc[0][month] = 1
 
     print(df_single_pred)
-    
+
     return df_single_pred
 
 if __name__ == '__main__':
