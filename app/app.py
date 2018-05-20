@@ -38,15 +38,19 @@ def solve():
     month = user_data['month']
 
     single_pred_test_2 = create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month)
+
     prediction = np.exp(model.predict(single_pred_test_2))
-    root_1 = print_prediction(prediction)
-    print(user_data)
+
+    pred_lower, pred_upper = get_prediction_intervals(single_pred_test_2)
+
+    root_1 = print_prediction(prediction, pred_lower, pred_upper)
+    # print(user_data)
     # print(model_columns)
     # print(single_pred_test_2)
     # print(prediction)
     return jsonify({'root_1': root_1})
 
-def print_prediction(prediction):
+def print_prediction(prediction, pred_lower, pred_upper):
     '''
     Formats the prediction value into a currency format and converts it to
     html code format to print to the webpage
@@ -60,7 +64,9 @@ def print_prediction(prediction):
     html code to print the prediction
     '''
     prediction_str = '${:,.0f}'.format(prediction[0])
-    return f'<p> Predicted Revenue: ' + prediction_str
+    pred_lower_str = '${:,.0f}'.format(pred_lower)
+    pred_upper_str = '${:,.0f}'.format(pred_upper)
+    return f'<p> Predicted Revenue: ' + prediction_str + '<p>Lower bound: ' + pred_lower_str + '<p>Upper bound: ' + pred_upper_str
 
 def create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month):
     '''
@@ -78,7 +84,7 @@ def create_prediction_array(budget, franchise, rating, genre, prod_method, creat
     A 2d pandas df (although it is only a single row) with the correct user defined
     prediction variables
     '''
-    df_single_pred = pd.DataFrame(np.array([[ 15.,   90.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+    df_single_pred = pd.DataFrame(np.array([[ 15.,   0. ,   90.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
              0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
              0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
              0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
@@ -106,11 +112,22 @@ def create_prediction_array(budget, franchise, rating, genre, prod_method, creat
 
     df_single_pred.loc[0][month] = 1
 
-    print(df_single_pred)
-
     return df_single_pred
 
+def get_prediction_intervals(row_to_predict):
+    '''
+    '''
+    each_tree_pred = []
+    n_estimators = model.n_estimators
+    for i in range(n_estimators):
+        each_tree_pred.append(model.estimators_[i].predict(row_to_predict))
+
+    lower_bound = np.percentile(each_tree_pred, 25)
+    upper_bound = np.percentile(each_tree_pred, 75)
+
+    return np.exp(lower_bound), np.exp(upper_bound)
+
 if __name__ == '__main__':
-    model = joblib.load('../model.pkl')
-    model_columns = joblib.load('../model_columns.pkl')
+    model = joblib.load('../src/model.pkl')
+    model_columns = joblib.load('../src/model_columns.pkl')
     app.run(host='0.0.0.0', threaded=True)
