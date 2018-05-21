@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 import numpy as np
 import pandas as pd
 from sklearn.externals import joblib
-
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 
@@ -44,10 +44,9 @@ def solve():
     pred_lower, pred_upper = get_prediction_intervals(single_pred_test_2)
 
     root_1 = print_prediction(prediction, pred_lower, pred_upper)
-    # print(user_data)
-    # print(model_columns)
-    # print(single_pred_test_2)
-    # print(prediction)
+
+    create_histogram(single_pred_test_2)
+
     return jsonify({'root_1': root_1})
 
 def print_prediction(prediction, pred_lower, pred_upper):
@@ -66,7 +65,10 @@ def print_prediction(prediction, pred_lower, pred_upper):
     prediction_str = '${:,.0f}'.format(prediction[0])
     pred_lower_str = '${:,.0f}'.format(pred_lower)
     pred_upper_str = '${:,.0f}'.format(pred_upper)
-    return f'<p> Predicted Revenue: ' + prediction_str + '<p>Lower bound: ' + pred_lower_str + '<p>Upper bound: ' + pred_upper_str
+    return f'<br><br><p style="font-size:20px"> Predicted Revenue: ' \
+            + prediction_str + '<p style="font-size:20px">Lower bound: ' \
+            + pred_lower_str + '<p style="font-size:20px">Upper bound: ' \
+            + pred_upper_str
 
 def create_prediction_array(budget, franchise, rating, genre, prod_method, creative_type, source, month):
     '''
@@ -116,16 +118,33 @@ def create_prediction_array(budget, franchise, rating, genre, prod_method, creat
 
 def get_prediction_intervals(row_to_predict):
     '''
+    Parameters
+    ----------
+    the user defined inputs as a single row dataframe
+
+    Returns
+    -------
+    Upper and Lower bounds (as floats) of 50 prediction interval
     '''
     each_tree_pred = []
     n_estimators = model.n_estimators
     for i in range(n_estimators):
         each_tree_pred.append(model.estimators_[i].predict(row_to_predict))
 
-    lower_bound = np.percentile(each_tree_pred, 25)
-    upper_bound = np.percentile(each_tree_pred, 75)
+    lower_bound = np.percentile(each_tree_pred, 20)
+    upper_bound = np.percentile(each_tree_pred, 80)
 
     return np.exp(lower_bound), np.exp(upper_bound)
+
+# def create_histogram(row_to_predict):
+#     preds = []
+#     for i in range(len(model.estimators_)):
+#         preds.append(model.estimators_[i].predict(row_to_predict)[0])
+#
+#     fig, ax = plt.subplots(1,figsize=(15,15))
+#     ax.hist(np.exp(np.array(preds)), bins = 30)
+#     fig.savefig('hist.png')
+#     return None
 
 if __name__ == '__main__':
     model = joblib.load('../src/model.pkl')
