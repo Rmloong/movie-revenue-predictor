@@ -45,7 +45,7 @@ def solve():
 
     root_1 = print_prediction(prediction, pred_lower, pred_upper)
 
-    create_histogram(single_pred_test_2)
+    # create_histogram(single_pred_test_2)
 
     return jsonify({'root_1': root_1})
 
