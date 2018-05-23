@@ -1,16 +1,17 @@
-
-
 """
-
+This module takes the cleaned collection from
+MongoDB and converts it to a pandas DataFrame
+and writes it to a csv. Ultimately to be used
+by model.py to fit and store the model. 
 """
 import pickle
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+# from sklearn.ensemble import RandomForestRegressor
 # from sklearn.model_selection import train_test_split
 # from sklearn.metrics import mean_squared_error
 # from sklearn.model_selection import GridSearchCV
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
 import pymongo
 
 def create_ww(dataframe):

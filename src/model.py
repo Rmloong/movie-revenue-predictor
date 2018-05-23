@@ -1,9 +1,15 @@
 
 """
-Module containing model fitting code for a web application that implements a
-text classification model.
-When run as a module, this will load a csv dataset, train a classification
-model, and then pickle the resulting model object to disk.
+Module that fits the model and stores it (joblib)
+in a pickle file.
+When run as a module, this will load a csv dataset,
+train a RF regression model, and then pickle the
+resulting model object to disk.
+
+Note: The parameters for the RF model were selected
+based upon GridSearchCV exploration in jupyter notebook.
+If new data or a new model type is needed, the user
+should refit and GridSearch again.
 """
 import pickle
 import numpy as np

@@ -1,3 +1,15 @@
+'''
+This module creates the application that hosts
+the web app server on www.predictmovierevenue.com
+
+It works in conjunction with the templates/index.html
+file.
+
+Note: This is the source code but the actual
+server is hosted on an Amazon EC2 instance.
+Changing code here will NOT change the website.
+'''
+
 from __future__ import division
 from math import sqrt
 from flask import Flask, render_template, request, jsonify

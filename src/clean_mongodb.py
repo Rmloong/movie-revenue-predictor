@@ -1,3 +1,15 @@
+'''
+This module is a single function to convert
+the raw html code that was stored in webscrape.py into
+a separate collection within the same db in MongoDB
+and make it a cleaner format. Ultimately to be used
+by clean_mongodb.py to convert this output
+a python pandas df.
+'''
+
+import pandas as pd
+import numpy as np
+
 def raw_html_to_db(raw_html_db):
     '''
     Iterates through the mongodb collection that has all the stored raw html
