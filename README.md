@@ -7,7 +7,10 @@ The entertainment business is inherently an industry with quite a bit of risk. E
 
 This model is intended to assist movie studios in making decisions on whether or not to move ahead with a certain movie. This is usually years before the movie even comes out. Other models might use additional data based upon data that can be gathered leading up to a movie’s release (trailer views, social media data, etc.) but that information would not be available to a studio who is making their decision before any of this happens.
 
-# Websraping
+#Solution (TL;DR)
+Deployed at www.predictmovierevenue.com
+
+# Webscraping
 
 www.the-numbers.com - Ultimately I chose this website
 because it had the single most complete data source
