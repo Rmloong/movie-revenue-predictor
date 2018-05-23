@@ -81,3 +81,8 @@ with similar values of similar movies (such as kNN)
 3. Adding actor and director dummy variables. This data was scraped but due to time constraints was not included in the final model.
 4. Add more years worth of data. The initial model
 is fitted on data from 2015-2017.
+5. Create a specialized model for large budget movies. The current model
+does not predict very well for large movies because they are not very common
+when looking at all movies produced. By narrowing the dataset to only movies
+above a certain budget, the model will fit those better. Alternatively, the dataset
+could be run through K-means clustering and then remodeled on each cluster.
