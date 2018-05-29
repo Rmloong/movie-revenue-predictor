@@ -8,6 +8,10 @@ The entertainment business is inherently an industry with quite a bit of risk. E
 This model is intended to assist movie studios in making decisions on whether or not to move ahead with a certain movie. This is usually years before the movie even comes out. Other models might use additional data based upon data that can be gathered leading up to a movie’s release (trailer views, social media data, etc.) but that information would not be available to a studio who is making their decision before any of this happens.
 
 # Solution (TL;DR)
+
+A web application that allows a user to predict a specific movie's revenue
+based upon different user-input features.
+
 Deployed at www.predictmovierevenue.com
 
 # Webscraping
@@ -15,7 +19,9 @@ Deployed at www.predictmovierevenue.com
 www.the-numbers.com - Ultimately I chose this website
 because it had the single most complete data source
 for movie data that I could find. Other websites
-explored included BoxOfficeMojo and IMDB.
+explored included BoxOfficeMojo and IMDB. Due to time constraints
+I chose to only use one, although combining data from other sources
+is certainly an option.
 
 # Data Filtering
 
@@ -77,12 +83,9 @@ The model had a general test MSE of 4.76, which was against a range of log(reven
 improved upon greatly by (among other things):
 1. Adding specific franchise dummy variables to capture the brand recognition of each franchise. (Star Wars, MCU, Harry Potter, etc.)
 2. Providing some way to fill in null budget values
-with similar values of similar movies (such as kNN)
+with similar values of similar movies (such as kNN) Note: It might even be helpful to try models without the budget entirely
 3. Adding actor and director dummy variables. This data was scraped but due to time constraints was not included in the final model.
 4. Add more years worth of data. The initial model
 is fitted on data from 2015-2017.
 5. Create a specialized model for large budget movies. The current model
-does not predict very well for large movies because they are not very common
-when looking at all movies produced. By narrowing the dataset to only movies
-above a certain budget, the model will fit those better. Alternatively, the dataset
-could be run through K-means clustering and then remodeled on each cluster.
+does not predict very well for large movies because they are not very common when looking at all movies produced. By narrowing the dataset to only movies above a certain budget, the model will fit those better. Alternatively, the dataset could be run through K-means clustering and then remodeled on each cluster.
