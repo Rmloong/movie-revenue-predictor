@@ -18,7 +18,9 @@
 
 </head>
 
-<body style="background-color:#eee9e9">
+<body id="page-top" style="background-color:#eee9e9">
+
+
 <!-- <body style="background-image:url()"> -->
   <div class="container">
     <h1>Ryan's Movie Revenue Prediction Algorithm</h1>
@@ -163,27 +165,40 @@
     </div>
 
     <br>
-    <br>
-    <div>
-        <button class="btn btn-primary btn-sm btn-block" type="button" id="solve"><p style="font-size:20px"><b>Predict!</b></button>
-    </div>
-
     <div>
         <!-- The span has an id so that later we can fill in the solution
              using js. -->
         <p><span id="solution"></span> </p>
 
     </div>
-
-
+    <br>
     <div>
+        <button class="btn btn-primary btn-sm btn-block" type="button" id="solve"><p style="font-size:20px"><b>Predict!</b></button>
+    </div>
+
+
+
+    <br>
+<section id="contact">
+    <div>
+        <li class="list-inline-item">
+           <a href='https://www.linkedin.com/in/rmloong/' target = "_blank">Linkedin
+             <i class="fa fa=linkedin"></i>
+           </a>
+        </li>
         <p>
-        <p>My <a href='https://www.linkedin.com/in/rmloong/' target = "_blank">Linkedin</a>
-        <p>To learn more about this project, click  <a href='https://github.com/Rmloong/movie-revenue-predictor' target = "_blank">here</a>
-        <p>Email: rmloong@gmail.com
+        <li class="list-inline-item">
+          <a href='https://github.com/Rmloong/movie-revenue-predictor' target = "_blank">Github repo
+            <i class="fa fa-github"></i>
+          </a>
+        </li>
+        <p>
+        <li>
+          Email: rmloong@gmail.com
+        </li>
     </div>
   </div>
-
+</section>
 <script type="text/javascript">
 let get_input_coefficients = function() {
   let franchise_input = $("select#franchise")
