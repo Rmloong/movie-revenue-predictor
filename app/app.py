@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index2.html')
 
 @app.route('/solve', methods=['POST'])
 def solve():
@@ -136,7 +136,7 @@ def get_prediction_intervals(row_to_predict):
 
     Returns
     -------
-    Upper and Lower bounds (as floats) of 50 prediction interval
+    Upper and Lower bounds (as floats) of 60 percent prediction interval
     '''
     each_tree_pred = []
     n_estimators = model.n_estimators
