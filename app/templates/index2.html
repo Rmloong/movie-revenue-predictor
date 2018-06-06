@@ -14,6 +14,7 @@
     <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
+    <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
@@ -213,13 +214,16 @@
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2">
             <div class="p-5">
-              <img class="img-fluid rounded-circle" src="../static/img/01.jpg" alt="">
+              <img class="img-fluid rounded-circle" src="../static/img/paper-stacks.jpg" alt="">
             </div>
           </div>
           <div class="col-lg-6 order-lg-1">
             <div class="p-5">
-              <h2 class="display-4">For those about to rock...</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <h2 class="display-4">Problem:</h2>
+              <p>Movie studios are bombarded with thousands of ideas
+                every year. Based upon the limited amount of data
+                available to them, how can they know whether or not
+                to greenlight a movie? </p>
             </div>
           </div>
         </div>
@@ -231,13 +235,26 @@
         <div class="row align-items-center">
           <div class="col-lg-6">
             <div class="p-5">
-              <img class="img-fluid rounded-circle" src="../static/img/02.jpg" alt="">
+              <img class="img-fluid rounded-circle" src="../static/img/film2.jpg" alt="">
             </div>
           </div>
           <div class="col-lg-6">
             <div class="p-5">
-              <h2 class="display-4">We salute you!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <h2 class="display-4">Solution:</h2>
+              <p>A web application where a user can input
+                features and it will give a prediction for
+                movie revenue. Also provided are upper and
+                lower bounds for the predictions. These values
+                are based upon the upper and lower bounds of 60%
+                of the Decision Tree predictions within the
+                Random forest model.</p>
+              <p>
+                If you are interested in learning more about
+                this tool or the data science behind it, you
+                can <a href=#contact>contact me </a>and/or view
+                the project repository
+                <a href="https://www.github.com/Rmloong/movie-revenue-predictor/" target="_blank">here.</a>
+              </p>
             </div>
           </div>
         </div>
@@ -249,13 +266,31 @@
         <div class="row align-items-center">
           <div class="col-lg-6 order-lg-2">
             <div class="p-5">
-              <img class="img-fluid rounded-circle" src="../static/img/03.jpg" alt="">
+              <img class="img-fluid rounded-circle" src="../static/img/rmloong.jpg" alt="">
             </div>
           </div>
           <div class="col-lg-6 order-lg-1">
             <div class="p-5">
-              <h2 class="display-4">Let there be rock!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <h2 class="display-4">Ryan Loong</h2>
+              <h3>Data Scientist</h3>
+              <!-- <p>.</p> -->
+                <ul class="list-inline social-buttons">
+                  <li class="list-inline-item">
+                    <a href="https://github.com/Rmloong" class="btn btn-linkedin btn-lg" target="_blank">
+                        <h1><i class="fa fa-github"></i></h1>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="https://www.linkedin.com/in/rmloong/" class="btn btn-lg" target="_blank">
+                        <h1><i class="fa fa-linkedin"></i></h1>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="https://docs.google.com/viewer?url=https://docs.google.com/document/d/1kQdGRM_8O5yxlI7k0PE0aZDjL1pxCB_icCZfrlhv-tI/export?format=pdf" class="btn btn-lg" target="_blank">
+                        <h1>Resume</h1>
+                    </a>
+                  </li>
+                </ul>
             </div>
           </div>
         </div>
@@ -265,7 +300,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-black">
       <div class="container">
-        <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2018</p>
+        <p class="m-0 text-center text-white small">Copyright &copy; Ryan Loong 2018</p>
       </div>
       <!-- /.container -->
     </footer>
@@ -273,6 +308,55 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
     <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+      let get_input_coefficients = function() {
+        let franchise_input = $("select#franchise")
+        let genre_input = $("select#genre")
+        let rating_input = $("select#rating")
+        let prod_method_input = $("select#prod_method")
+        let creative_type_input = $('select#creative_type')
+        let source_input = $('select#source')
+        let month_input = $('select#month')
+          let budget = $("input#b").val()
+          let franchise = franchise_input.val()
+          let genre = genre_input.val()
+          let rating = rating_input.val()
+          let prod_method = prod_method_input.val()
+          let creative_type = creative_type_input.val()
+          let source = source_input.val()
+          let month = month_input.val()
+
+          return {'budget': parseInt(budget),
+                  'franchise': franchise,
+                  'genre': genre,
+                  'rating': rating,
+                  'prod_method': prod_method,
+                  'creative_type': creative_type,
+                  'source': source,
+                  'month': month
+                  }
+      };
+      let send_coefficient_json = function(coefficients) {
+          $.ajax({
+              url: '/solve',
+              contentType: "application/json; charset=utf-8",
+              type: 'POST',
+              success: function (data) {
+                  display_solutions(data);
+              },
+              data: JSON.stringify(coefficients)
+          });
+      };
+      let display_solutions = function(solutions) {
+          $("span#solution").html(solutions.root_1)
+      };
+      $(document).ready(function() {
+          $("button#solve").click(function() {
+              let coefficients = get_input_coefficients();
+              send_coefficient_json(coefficients);
+          })
+      })
+    </script>
 
   </body>
 
